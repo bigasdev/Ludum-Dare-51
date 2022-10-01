@@ -234,9 +234,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeedVariable: 4
-  lifeVariable: 0
-  maxLifeVariable: 0
-  spriteSquashSpeed: 0.125
+  lifeVariable: 10
+  maxLifeVariable: 10
+  spriteSquashSpeed: 1
   blinkMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   movement: {x: 0, y: 0}
 --- !u!1 &175501940
@@ -627,6 +627,7 @@ Transform:
   - {fileID: 265549591}
   - {fileID: 2123039819}
   - {fileID: 1691396154}
+  - {fileID: 2037970888}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -640,6 +641,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1691396154}
   - component: {fileID: 1691396155}
+  - component: {fileID: 1691396156}
   m_Layer: 0
   m_Name: CurseController
   m_TagString: Untagged
@@ -673,7 +675,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95379738dcd5fb745af589a10053ff03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  events: []
+  curses: []
+--- !u!114 &1691396156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1691396153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3ac5c4e0640d5a489266ae4ac98de15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  curses:
+  - name: Freeze
+    description: 
+    icon: {fileID: 0}
+    evnt:
+      m_PersistentCalls:
+        m_Calls: []
+  - name: Poison
+    description: 
+    icon: {fileID: 0}
+    evnt:
+      m_PersistentCalls:
+        m_Calls: []
+  - name: Slow
+    description: 
+    icon: {fileID: 0}
+    evnt:
+      m_PersistentCalls:
+        m_Calls: []
+  - name: No weapon
+    description: 
+    icon: {fileID: 0}
+    evnt:
+      m_PersistentCalls:
+        m_Calls: []
 --- !u!1 &1710271848
 GameObject:
   m_ObjectHideFlags: 0
@@ -907,6 +946,49 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &2037970887
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2037970888}
+  - component: {fileID: 2037970889}
+  m_Layer: 0
+  m_Name: Debug
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2037970888
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2037970887}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 846688658}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2037970889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2037970887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c3f56b6d7254324eac0091a184b1935, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2081335558
 GameObject:
   m_ObjectHideFlags: 0
@@ -1008,4 +1090,7 @@ MonoBehaviour:
       joystickKey: 4
     - inputName: Info
       inputKey: 301
+      joystickKey: 5
+    - inputName: Debug
+      inputKey: 280
       joystickKey: 5

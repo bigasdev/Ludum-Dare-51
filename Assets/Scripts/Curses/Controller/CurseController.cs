@@ -27,15 +27,18 @@ namespace LudumDare
             tickTimer += Time.deltaTime;
             if(tickTimer >= 10){
                 OnTick();
-                tickTimer = 0;
             }
         }
 
-        void OnTick(){
+        public void OnTick(){
+            tickTimer = 0;
             if(curses.Count == 0)return;
 
             var rnd = curses[Random.Range(0, curses.Count)];
 
+            Hero.Instance.Cleanse();
+            Hero.Instance.squashY = 1.25f;
+            BDebug.Log(rnd.name, "Curses");
             CameraManager.Instance.SetShake(.15f, .125f, "Curse tick!");
             rnd.evnt.Invoke();
         }
