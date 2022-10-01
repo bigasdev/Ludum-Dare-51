@@ -21,6 +21,11 @@ namespace LudumDare
 
         bool attacking = false;
         float attackCd = 0;
+
+        //Util functions
+        bool IsMoving(){
+            return movement.x != 0 || movement.y != 0;
+        }
         private void Update() {
             var x = BGameInput.Instance.GetAxis().x;
             var y = BGameInput.Instance.GetAxis().y;
@@ -32,6 +37,7 @@ namespace LudumDare
             OnShake();
             OnBlink();
             OnSquash();
+            RaycastWaypoint();
             RaycastEnemies();
         }
         void Cooldown(){
@@ -66,6 +72,20 @@ namespace LudumDare
                 return;
             }
         }
+        void RaycastWaypoint(){
+            if(!IsMoving())return;
+            RaycastHit2D hit;
+
+            hit = Physics2D.BoxCast(new Vector2(this.transform.position.x+movement.x, this.transform.position.y+movement.y), Vector2.one, 1, transform.forward);
+            if(hit){
+                Debug.Log(hit);
+                var w = hit.collider.GetComponent<Waypoint>();
+                Debug.Log(w);
+                if(w == null)return;
+                Debug.Log(w);
+                w.Enter();
+            }
+        }
         protected override void OnSpawn()
         {
             base.OnSpawn();
@@ -82,9 +102,14 @@ namespace LudumDare
         }
 
         private void OnDrawGizmosSelected() {
-            if(!attacking)return;
-            Gizmos.color = Color.green;
-            Gizmos.DrawCube(new Vector2(this.transform.position.x+movement.x, this.transform.position.y+movement.y), Vector3.one);
+            if(attacking){
+                Gizmos.color = Color.green;
+                Gizmos.DrawCube(new Vector2(this.transform.position.x+movement.x, this.transform.position.y+movement.y), Vector3.one);
+            }
+            if(IsMoving()){
+                Gizmos.color = Color.red;
+                Gizmos.DrawCube(new Vector2(this.transform.position.x+movement.x, this.transform.position.y+movement.y), (Vector3.one*.5f));
+            }
         }
     }
 }
