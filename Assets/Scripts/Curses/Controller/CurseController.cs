@@ -15,13 +15,8 @@ namespace LudumDare
                 return instance;
             }
         }
-        [SerializeField] List<UnityEvent> events = new List<UnityEvent>();
+        [SerializeField] public List<CurseProfile> curses = new List<CurseProfile>();
         float tickTimer = -10;
-
-        public void AddCurse(UnityEvent eve){
-            events.Add(eve);
-        }
-
         private void Update() {
             CurseUpdate();
         }
@@ -37,12 +32,12 @@ namespace LudumDare
         }
 
         void OnTick(){
-            if(events.Count == 0)return;
+            if(curses.Count == 0)return;
 
-            var rnd = events[Random.Range(0, events.Count)];
+            var rnd = curses[Random.Range(0, curses.Count)];
 
             CameraManager.Instance.SetShake(.15f, .125f, "Curse tick!");
-            rnd.Invoke();
+            rnd.evnt.Invoke();
         }
     }
 }
