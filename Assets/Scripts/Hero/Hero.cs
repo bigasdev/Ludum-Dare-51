@@ -18,10 +18,12 @@ namespace LudumDare
         }
         [SerializeField] Vector2 movement;
         [SerializeField] float attackingTimer = .125f;
+        [SerializeField] Animator animator;
+        [SerializeField] GameObject spriteHolder;
 
         bool attacking = false;
         float attackCd = 0;
-
+        float localScale = 1;
         //Util functions
         bool IsMoving(){
             return movement.x != 0 || movement.y != 0;
@@ -32,7 +34,10 @@ namespace LudumDare
 
             movement = new Vector2(x,y).normalized;
 
+
             ListenForInput();
+            LocalScale();
+            Animation();
             Cooldown();
             OnShake();
             OnBlink();
@@ -53,6 +58,16 @@ namespace LudumDare
             if(BGameInput.Instance.GetKeyPress("Attack")){
                 attacking = true;
             }
+        }
+        void LocalScale(){
+            localScale = Mathf.Floor(movement.x);
+            if(localScale == 0)localScale = 1;
+            spriteHolder.transform.localScale = new Vector2(-localScale, 1);
+        }
+        void Animation(){
+            animator.SetBool("Moving", IsMoving());
+            animator.SetInteger("Up", (int)movement.y);
+            animator.SetBool("Side", movement.x != 0);
         }
         private void FixedUpdate() {
             OnMove();
