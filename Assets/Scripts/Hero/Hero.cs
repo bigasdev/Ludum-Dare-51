@@ -17,17 +17,54 @@ namespace LudumDare
             }
         }
         [SerializeField] Vector2 movement;
+        [SerializeField] float attackingTimer = .125f;
+
+        bool attacking = false;
+        float attackCd = 0;
         private void Update() {
             var x = BGameInput.Instance.GetAxis().x;
             var y = BGameInput.Instance.GetAxis().y;
 
             movement = new Vector2(x,y).normalized;
+
+            ListenForInput();
+            Cooldown();
             OnShake();
             OnBlink();
             OnSquash();
+            RaycastEnemies();
+        }
+        void Cooldown(){
+            if(attacking){
+                attackCd += Time.deltaTime;
+                if(attackCd >= attackingTimer){
+                    attacking = false;
+                    attackCd = 0;
+                }
+            }
+        }
+        void ListenForInput(){
+            if(BGameInput.Instance.GetKeyPress("Attack")){
+                attacking = true;
+            }
         }
         private void FixedUpdate() {
             OnMove();
+        }
+
+        void RaycastEnemies(){
+            if(!attacking)return;
+            RaycastHit2D hit;
+
+            hit = Physics2D.BoxCast(new Vector2(this.transform.position.x+movement.x, this.transform.position.y+movement.y), Vector2.one, 1, transform.forward);
+            if(hit){
+                var m = hit.collider.GetComponentInParent<Minion>();
+                if(m == null)return;
+                m.Blink(.125f, 3, Color.red);
+                m.Hit(1);
+                attacking = false;
+                return;
+            }
         }
         protected override void OnSpawn()
         {
@@ -42,6 +79,12 @@ namespace LudumDare
         }
         public void Cleanse(){
 
+        }
+
+        private void OnDrawGizmosSelected() {
+            if(!attacking)return;
+            Gizmos.color = Color.green;
+            Gizmos.DrawCube(new Vector2(this.transform.position.x+movement.x, this.transform.position.y+movement.y), Vector3.one);
         }
     }
 }
