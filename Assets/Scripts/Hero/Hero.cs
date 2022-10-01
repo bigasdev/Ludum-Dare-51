@@ -18,10 +18,12 @@ namespace LudumDare
             }
         }
         public UnityEvent<Entity> OnTouch = new UnityEvent<Entity>();
+        public UnityEvent OnCleanse = new UnityEvent();
         [SerializeField] Vector2 movement;
         [SerializeField] float attackingTimer = .125f;
         [SerializeField] Animator animator;
         [SerializeField] GameObject spriteHolder;
+        [HideInInspector]public bool canAttack = true;
 
         bool attacking = false, colliding = false;
         float attackCd = 0, collidingCd = 0;
@@ -65,7 +67,7 @@ namespace LudumDare
             }
         }
         void ListenForInput(){
-            if(BGameInput.Instance.GetKeyPress("Attack")){
+            if(BGameInput.Instance.GetKeyPress("Attack") && canAttack){
                 attacking = true;
             }
         }
@@ -156,7 +158,7 @@ namespace LudumDare
             life -= damage;
         }
         public void Cleanse(){
-
+            OnCleanse.Invoke();
         }
 
         private void OnDrawGizmosSelected() {

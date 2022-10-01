@@ -13,7 +13,23 @@ namespace LudumDare
             CurseController.Instance.curses = curses;
 
             GetCurse("Freeze").evnt.AddListener(()=>{
-                Debug.Log("Freeze");
+                Hero.Instance.moveSpeed = 0;
+            });
+            
+            Hero.Instance.OnCleanse.AddListener(()=>{Hero.Instance.moveSpeed = 4;});
+
+            GetCurse("Slow").evnt.AddListener(()=>{
+                Hero.Instance.moveSpeed = 2;
+            });
+
+            GetCurse("No weapon").evnt.AddListener(()=>{
+                Hero.Instance.canAttack = false;
+            });
+
+            Hero.Instance.OnCleanse.AddListener(()=>{Hero.Instance.canAttack = true;});
+
+            GetCurse("Turbo enemies").evnt.AddListener(()=>{
+
             });
         }
         public CurseProfile GetCurse(string name){

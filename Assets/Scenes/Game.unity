@@ -558,25 +558,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   curses:
   - name: Freeze
-    description: 
-    icon: {fileID: 0}
-    evnt:
-      m_PersistentCalls:
-        m_Calls: []
-  - name: Poison
-    description: 
+    description: You can't move! But you can still attack and rotate so use this
+      to your advantage
     icon: {fileID: 0}
     evnt:
       m_PersistentCalls:
         m_Calls: []
   - name: Slow
-    description: 
+    description: It sucks to be slow right?
     icon: {fileID: 0}
     evnt:
       m_PersistentCalls:
         m_Calls: []
   - name: No weapon
-    description: 
+    description: Well... At least you can run
+    icon: {fileID: 0}
+    evnt:
+      m_PersistentCalls:
+        m_Calls: []
+  - name: Turbo enemies
+    description: Be careful because now the enemies have 2x speed
     icon: {fileID: 0}
     evnt:
       m_PersistentCalls:
