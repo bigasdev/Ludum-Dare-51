@@ -31,6 +31,22 @@ namespace LudumDare
             GetCurse("Turbo enemies").evnt.AddListener(()=>{
 
             });
+
+            GetCurse("Blurry").evnt.AddListener(()=>{
+                PostProcess.Instance.depthOfField.active = true;
+            }); 
+            GetCurse("Darkness").evnt.AddListener(()=>{
+                PostProcess.Instance.vignette.active = true;
+            });
+            GetCurse("Weird lens").evnt.AddListener(()=>{
+                PostProcess.Instance.distortion.active = true;
+            });
+
+            Hero.Instance.OnCleanse.AddListener(()=>{
+                PostProcess.Instance.depthOfField.active = false;
+                PostProcess.Instance.vignette.active = false;
+                PostProcess.Instance.distortion.active = false;
+            });
         }
         public CurseProfile GetCurse(string name){
             return curses.Where(x=>x.name == name).FirstOrDefault();
