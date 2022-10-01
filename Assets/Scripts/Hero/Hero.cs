@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using BigasTools;
 using BigasTools.InputSystem;
 using BigasTools.Hero;
@@ -16,13 +17,14 @@ namespace LudumDare
                 return instance;
             }
         }
+        public UnityEvent<Entity> OnTouch = new UnityEvent<Entity>();
         [SerializeField] Vector2 movement;
         [SerializeField] float attackingTimer = .125f;
         [SerializeField] Animator animator;
         [SerializeField] GameObject spriteHolder;
 
-        bool attacking = false;
-        float attackCd = 0;
+        bool attacking = false, colliding = false;
+        float attackCd = 0, collidingCd = 0;
         float localScale = 1;
         //Util functions
         bool IsMoving(){
@@ -42,6 +44,7 @@ namespace LudumDare
             OnShake();
             OnBlink();
             OnSquash();
+            RaycastBody();
             RaycastWaypoint();
             RaycastEnemies();
         }
@@ -51,6 +54,13 @@ namespace LudumDare
                 if(attackCd >= attackingTimer){
                     attacking = false;
                     attackCd = 0;
+                }
+            }
+            if(colliding){
+                collidingCd += Time.deltaTime;
+                if(collidingCd >= .25f){
+                    colliding = false;
+                    collidingCd = 0;
                 }
             }
         }
@@ -87,6 +97,19 @@ namespace LudumDare
                 return;
             }
         }
+        void RaycastBody(){
+            if(colliding)return;
+            RaycastHit2D hit;
+
+            hit = Physics2D.BoxCast(this.transform.position, (Vector2.one*.35f), 1, transform.forward);
+            if(hit){
+                var m = hit.collider.GetComponentInParent<Entity>();
+                if(m == null)return;
+                OnTouch.Invoke(m);
+                colliding = true;
+                return;
+            }
+        }
         void RaycastWaypoint(){
             if(!IsMoving())return;
             RaycastHit2D hit;
@@ -101,6 +124,19 @@ namespace LudumDare
                 w.Enter();
             }
         }
+        bool RaycastWalls(){
+            if(!IsMoving())return false;
+
+            RaycastHit2D hit;
+
+            hit = Physics2D.BoxCast(new Vector2(this.transform.position.x+movement.x*.15f, this.transform.position.y+movement.y*.15f), Vector2.one, 1, transform.forward);
+            if(hit){
+                if(hit.collider.gameObject.layer == 6){
+                    return false;
+                }
+            }
+            return true;
+        }
         protected override void OnSpawn()
         {
             base.OnSpawn();
@@ -110,7 +146,14 @@ namespace LudumDare
         {
             base.OnMove();
             
-            this.transform.position = Vector2.MoveTowards(this.transform.position, new Vector2(this.transform.position.x+movement.x, this.transform.position.y+movement.y), moveSpeed * Time.fixedDeltaTime);
+            if(RaycastWalls())this.transform.position = Vector2.MoveTowards(this.transform.position, new Vector2(this.transform.position.x+movement.x, this.transform.position.y+movement.y), moveSpeed * Time.fixedDeltaTime);
+        }
+        public override void Hit(float damage, Entity attacker = null)
+        {
+            CameraManager.Instance.SetShake(.1f, .2f, "Hit");
+            squashX = .7f;
+            Blink(.1f, 3, color:Color.white);
+            life -= damage;
         }
         public void Cleanse(){
 

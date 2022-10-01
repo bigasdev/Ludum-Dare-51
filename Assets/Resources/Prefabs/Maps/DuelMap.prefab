@@ -299,7 +299,7 @@ GameObject:
   - component: {fileID: 7393534926129674882}
   - component: {fileID: 4603937452450128340}
   m_Layer: 0
-  m_Name: MapExample
+  m_Name: DuelMap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

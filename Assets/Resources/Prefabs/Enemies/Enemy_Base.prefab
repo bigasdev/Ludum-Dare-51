@@ -106,7 +106,7 @@ MonoBehaviour:
   lifeVariable: 5
   maxLifeVariable: 5
   spriteSquashSpeed: 3
-  blinkMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  blinkMaterial: {fileID: 2100000, guid: fe9dd60004b04524db317859ab348faf, type: 2}
 --- !u!1 &7155504425032142983
 GameObject:
   m_ObjectHideFlags: 0

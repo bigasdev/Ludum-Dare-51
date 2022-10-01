@@ -45,10 +45,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeedVariable: 4
-  lifeVariable: 10
-  maxLifeVariable: 10
+  lifeVariable: 100
+  maxLifeVariable: 100
   spriteSquashSpeed: 1
-  blinkMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  blinkMaterial: {fileID: 2100000, guid: fe9dd60004b04524db317859ab348faf, type: 2}
+  OnTouch:
+    m_PersistentCalls:
+      m_Calls: []
   movement: {x: 0, y: 0}
   attackingTimer: 0.125
   animator: {fileID: 3269005151818013547}
