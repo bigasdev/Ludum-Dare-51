@@ -670,6 +670,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95379738dcd5fb745af589a10053ff03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnSecond:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTickEvnt:
+    m_PersistentCalls:
+      m_Calls: []
   curses: []
 --- !u!114 &1691396156
 MonoBehaviour:
@@ -1172,6 +1178,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3652350501962184529, guid: 8d4ace679fa2976498440fbc9c18cf78, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 2100000, guid: 6041b091b29e24e44883da5a4127b825, type: 2}
     - target: {fileID: 3652350501980614937, guid: 8d4ace679fa2976498440fbc9c18cf78, type: 3}
       propertyPath: m_Name
       value: GameHud
@@ -1259,6 +1269,10 @@ PrefabInstance:
     - target: {fileID: 3652350501980614941, guid: 8d4ace679fa2976498440fbc9c18cf78, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3652350502985744606, guid: 8d4ace679fa2976498440fbc9c18cf78, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 386
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8d4ace679fa2976498440fbc9c18cf78, type: 3}
