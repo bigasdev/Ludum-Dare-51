@@ -69,7 +69,7 @@ namespace LudumDare
         void ListenForInput(){
             if(BGameInput.Instance.GetKeyPress("Attack") && canAttack){
                 animator.SetTrigger("Attack");
-                CameraManager.Instance.SetShake(.05f, .2f, "Player attacking!");
+                CameraManager.Instance.SetShake(.015f, .05f, "Player attacking!");
                 attacking = true;
             }
         }
